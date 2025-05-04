@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 use plotters::prelude::*;
-use crate::data_loader::Freelancer;
+use super::data_loader::Freelancer;
 
 pub fn analyze_cluster_performance(clusters: &[Vec<usize>], freelancers: &[Freelancer]) {
     for (cluster_id, member_indices) in clusters.iter().enumerate() {

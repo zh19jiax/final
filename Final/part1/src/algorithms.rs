@@ -1,5 +1,5 @@
 use std::collections::VecDeque;
-use crate::data_loader::Freelancer;
+use super::data_loader::Freelancer;
 
 /// Find connected components using BFS
 pub fn find_connected_components(adj_list: &[Vec<usize>]) -> Vec<Vec<usize>> {

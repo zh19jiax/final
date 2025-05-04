@@ -1,8 +1,6 @@
-use ndarray::{Array1, Array2, stack, Axis};
-use ndarray_linalg::LeastSquaresSvd;
+use linfa::Dataset;
+use linfa::traits::{Fit, Predict};
+use linfa_linear::LinearRegression;
+use ndarray::{Array1, Array2};
 use crate::data_loader::Freelancer;
 
-pub struct RegressionModel {
-    pub coefficients: Array1<f64>,
-    pub feature_names: Vec<String>,
-}

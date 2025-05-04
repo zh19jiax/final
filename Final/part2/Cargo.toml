@@ -4,6 +4,9 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+csv = "1.2"
+linfa = { git = "https://github.com/rust-ml/linfa" }
+linfa-linear = { git = "https://github.com/rust-ml/linfa" }
 ndarray = "0.15"
 ndarray-linalg = "0.16"
-rand = "0.8"
+rand = "0.8.5"
