@@ -184,15 +184,15 @@ pub fn plot_cluster_experience_rates(
         .draw()?;
 
     // 3. Draw grouped bars with proper coordinate types
-    let bar_width = 0.15;  // Reduced bar width for better spacing
-    let group_width = bar_width * 3.0;  // Total width for all three bars
+    let bar_width = 0.15; 
+    let group_width = bar_width * 3.0; 
     
     for (exp_idx, exp) in experience_levels.iter().enumerate() {
         let x_offset = (exp_idx as f64 - 1.0) * bar_width;
 
         chart.draw_series(
             cluster_data.iter().map(|(cluster_id, rates)| {
-                let x_center = *cluster_id as f64 + 0.2 + x_offset;
+                let x_center = *cluster_id as f64 + 0.8 + x_offset;  //Adjust the bar positioning to align with the axis
                 let y_value = rates[exp_idx] as f64;
                 
                 Rectangle::new(
