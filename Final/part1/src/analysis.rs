@@ -1,7 +1,21 @@
+/// Module for analyzing freelancer data and generating insights.
+/// Provides functions for statistical analysis and data visualization.
+
 use std::collections::HashMap;
 use plotters::prelude::*;
 use super::data_loader::Freelancer;
 
+/// Analyzes performance metrics for each cluster of freelancers.
+/// 
+/// # Arguments: 
+// `clusters` - Vector of clusters, where each cluster is a vector of freelancer indices, 
+// `freelancers` - Slice of Freelancer structs to analyze
+/// 
+/// # Output
+/// Prints analysis results including:
+/// Number of members in each cluster
+/// Average earnings per cluster
+/// Average hourly rate per cluster
 pub fn analyze_cluster_performance(clusters: &[Vec<usize>], freelancers: &[Freelancer]) {
     for (cluster_id, member_indices) in clusters.iter().enumerate() {
         let mut total_earnings = 0.0;
@@ -38,6 +52,18 @@ pub fn analyze_cluster_performance(clusters: &[Vec<usize>], freelancers: &[Freel
     }
 }
 
+/// Analyzes the profile characteristics of each cluster.
+/// 
+/// # Arguments
+/// `clusters` - Vector of clusters, where each cluster is a vector of freelancer indices
+/// `freelancers` - Slice of Freelancer structs to analyze
+/// 
+/// # Output
+/// Prints dominant attributes for each cluster including:
+///Job Category distribution
+///Platform distribution
+///Client Region distribution
+///Experience Level distribution
 pub fn analyze_cluster_profiles(clusters: &[Vec<usize>], freelancers: &[Freelancer]) {
     for (cluster_id, member_indices) in clusters.iter().enumerate() {
         let mut attributes = HashMap::new();
@@ -59,6 +85,15 @@ pub fn analyze_cluster_profiles(clusters: &[Vec<usize>], freelancers: &[Freelanc
     }
 }
 
+/// Prints the dominant attributes for a given category in a cluster.
+/// 
+/// # Arguments
+/// `attributes` - Map of attribute categories and their frequencies
+/// `category` - Category to analyze
+/// `total` - Total number of members in the cluster
+/// 
+/// # Output
+/// Prints the most common attribute and its percentage in the cluster
 fn print_dominant_attributes(attributes: &HashMap<(&str, String), usize>, category: &str, total: usize) {
     let filtered: Vec<_> = attributes.iter()
         .filter(|((cat, _), _)| *cat == category)
@@ -70,7 +105,21 @@ fn print_dominant_attributes(attributes: &HashMap<(&str, String), usize>, catego
     }
 }
 
-
+/// Plots the hourly rates by experience level for each cluster.
+/// 
+/// # Arguments
+/// `clusters` - Vector of clusters, where each cluster is a vector of freelancer indices
+/// `freelancers` - Slice of Freelancer structs to analyze
+/// 
+/// # Returns
+/// `Result<(), Box<dyn Error>>` - Success or error status
+/// 
+/// # Output
+/// Generates a bar chart saved as "cluster_experience_rates.png" showing:
+/// Hourly rates grouped by experience level
+/// Different colors for each experience level
+/// Cluster IDs on x-axis
+/// Average hourly rates on y-axis
 pub fn plot_cluster_experience_rates(
     clusters: &[Vec<usize>],
     freelancers: &[Freelancer],
