@@ -1,10 +1,9 @@
 [package]
-name = "part2"
+name = "part3"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
 
 [dependencies]
-csv = "1.2"
 linfa = { git = "https://github.com/rust-ml/linfa" }
 linfa-linear = { git = "https://github.com/rust-ml/linfa" }
 ndarray = { version = "^0.15.6" }
