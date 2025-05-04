@@ -1,4 +1,4 @@
-use std::collections::{VecDeque, HashMap};
+use std::collections::VecDeque;
 use crate::data_loader::Freelancer;
 
 /// Find connected components using BFS
