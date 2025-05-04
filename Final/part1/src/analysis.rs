@@ -16,6 +16,7 @@ use super::data_loader::Freelancer;
 /// Number of members in each cluster
 /// Average earnings per cluster
 /// Average hourly rate per cluster
+
 pub fn analyze_cluster_performance(clusters: &[Vec<usize>], freelancers: &[Freelancer]) {
     for (cluster_id, member_indices) in clusters.iter().enumerate() {
         let mut total_earnings = 0.0;
@@ -120,6 +121,8 @@ fn print_dominant_attributes(attributes: &HashMap<(&str, String), usize>, catego
 /// Different colors for each experience level
 /// Cluster IDs on x-axis
 /// Average hourly rates on y-axis
+
+
 pub fn plot_cluster_experience_rates(
     clusters: &[Vec<usize>],
     freelancers: &[Freelancer],
@@ -127,7 +130,11 @@ pub fn plot_cluster_experience_rates(
     // 1. Prepare data structure
     let mut cluster_data = Vec::new();
     let experience_levels = ["Beginner", "Intermediate", "Expert"];
-    let colors = [RGBColor(255, 0, 0), RGBColor(0, 255, 0), RGBColor(0, 0, 255)];
+    let colors = [
+        RGBColor(255, 0, 0),    // Red for Beginner
+        RGBColor(0, 255, 0),    // Green for Intermediate
+        RGBColor(0, 0, 255),    // Blue for Expert
+    ];
 
     for (cluster_id, members) in clusters.iter().enumerate() {
         let mut exp_rates = HashMap::new();
@@ -177,13 +184,15 @@ pub fn plot_cluster_experience_rates(
         .draw()?;
 
     // 3. Draw grouped bars with proper coordinate types
-    let bar_width = 0.2;
+    let bar_width = 0.15;  // Reduced bar width for better spacing
+    let group_width = bar_width * 3.0;  // Total width for all three bars
+    
     for (exp_idx, exp) in experience_levels.iter().enumerate() {
         let x_offset = (exp_idx as f64 - 1.0) * bar_width;
 
         chart.draw_series(
             cluster_data.iter().map(|(cluster_id, rates)| {
-                let x_center = *cluster_id as f64 + x_offset;
+                let x_center = *cluster_id as f64 + 0.2 + x_offset;
                 let y_value = rates[exp_idx] as f64;
                 
                 Rectangle::new(
@@ -194,7 +203,13 @@ pub fn plot_cluster_experience_rates(
                     colors[exp_idx].filled(),
                 )
             })
-        )?.label(*exp);
+        )?.label(*exp)
+          .legend(move |(x, y)| {
+              Rectangle::new(
+                  [(x, y - 5), (x + 20, y + 5)],
+                  colors[exp_idx].filled(),
+              )
+          });
     }
 
     // 4. Add legend and finalize
